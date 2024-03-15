@@ -1,7 +1,7 @@
 import toast, { Toaster } from "react-hot-toast";
 import css from "./SearchBar.module.css";
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, query }) => {
   const notify = () =>
     toast("Please enter your query!", {
       position: "top-right",
