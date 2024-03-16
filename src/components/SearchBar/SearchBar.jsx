@@ -1,29 +1,29 @@
 import toast, { Toaster } from "react-hot-toast";
 import css from "./SearchBar.module.css";
 
-const SearchBar = ({ onSearch, query }) => {
-  const notify = () =>
-    toast("Please enter your query!", {
-      position: "top-right",
-    });
+const SearchBar = () => {
+  // const notify = () =>
+  //   toast("Please enter your query!", {
+  //     position: "top-right",
+  //   });
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const form = evt.target;
-    const query = form.elements["query"].value;
+  // const handleSubmit = (evt) => {
+  //   evt.preventDefault();
+  //   const form = evt.target;
+  //   const query = form.elements["query"].value;
 
-    if (query) {
-      onSearch({ query: query });
-    } else {
-      notify();
-    }
+  //   if (query) {
+  //     onSubmit({ query: query });
+  //   } else {
+  //     notify();
+  //   }
 
-    form.reset();
-  };
+  //   form.reset();
+  // };
 
   return (
     <header>
-      <form className={css.form} onSubmit={handleSubmit}>
+      <form className={css.form}>
         <input
           className={css.input}
           type="text"
