@@ -12,6 +12,7 @@ const API_KEY = "DNjz_WmDfP4R6Lavo-0pe3nO3flY5cDFdXY_l6ZaDV0";
 function App() {
   const [images, setImages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     async function getImages() {
@@ -22,7 +23,7 @@ function App() {
         );
         setImages(response.data);
       } catch (err) {
-        //TODO:
+        setIsError(true);
       } finally {
         setIsLoading(false);
       }
@@ -37,6 +38,9 @@ function App() {
 
   return (
     <div>
+      {isError && (
+        <p>Whoops, something went wrong! Please try reloading this page!</p>
+      )}
       {isLoading && (
         <ThreeDots
           visible={true}
