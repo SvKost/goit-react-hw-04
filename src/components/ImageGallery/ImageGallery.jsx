@@ -12,7 +12,7 @@ const ImageGallery = ({ images }) => {
                 <ImageCard
                   imgUrl={image.urls.small}
                   altText={image.alt_description}
-                  description={image.description}
+                  description={image.alt_description}
                   likes={image.likes}
                   author={image.user.username}
                 />
@@ -25,3 +25,15 @@ const ImageGallery = ({ images }) => {
 };
 
 export default ImageGallery;
+/* <ul>
+  {images !== null &&
+    images.map((image) => {
+      return (
+        <li key={image.id}>
+          <img width={250} src={image.urls.small} alt={image.alt_description} />
+          <p>likes: {image.likes}</p>
+          <p>author: {image.user.username}</p>
+        </li>
+      );
+    })}
+</ul>; */
