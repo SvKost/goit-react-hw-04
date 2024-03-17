@@ -1,7 +1,7 @@
 import ImageCard from "../../components/ImageCard/ImageCard";
 import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images = null }) => {
   return (
     <div>
       <ul>
@@ -25,15 +25,3 @@ const ImageGallery = ({ images }) => {
 };
 
 export default ImageGallery;
-/* <ul>
-  {images !== null &&
-    images.map((image) => {
-      return (
-        <li key={image.id}>
-          <img width={250} src={image.urls.small} alt={image.alt_description} />
-          <p>likes: {image.likes}</p>
-          <p>author: {image.user.username}</p>
-        </li>
-      );
-    })}
-</ul>; */
