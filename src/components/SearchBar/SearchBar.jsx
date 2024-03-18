@@ -1,29 +1,27 @@
 import toast, { Toaster } from "react-hot-toast";
 import css from "./SearchBar.module.css";
 
-const SearchBar = () => {
-  // const notify = () =>
-  //   toast("Please enter your query!", {
-  //     position: "top-right",
-  //   });
+const SearchBar = ({ onSearch }) => {
+  const notify = () =>
+    toast("Please enter your query!", {
+      position: "top-right",
+    });
 
-  // const handleSubmit = (evt) => {
-  //   evt.preventDefault();
-  //   const form = evt.target;
-  //   const query = form.elements["query"].value;
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const form = evt.target;
+    const query = form.elements.query.value.trim();
 
-  //   if (query) {
-  //     onSubmit({ query: query });
-  //   } else {
-  //     notify();
-  //   }
+    {
+      !query ? notify() : onSearch(query);
+    }
 
-  //   form.reset();
-  // };
+    form.reset();
+  };
 
   return (
     <header>
-      <form className={css.form}>
+      <form className={css.form} onSubmit={handleSubmit}>
         <input
           className={css.input}
           type="text"
@@ -35,10 +33,9 @@ const SearchBar = () => {
         <button className={css.button} type="submit">
           Search
         </button>
-        <Toaster />
       </form>
+      <Toaster />
     </header>
   );
 };
-
 export default SearchBar;
