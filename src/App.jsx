@@ -4,40 +4,103 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import { Loader } from "./components/Loader/Loader";
-import { fetchImages } from "./services/api";
+import { fetchImagesByQuery } from "./services/api";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
 
 function App() {
-  const [images, setImages] = useState(null);
+  const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [loadMoreBtn, setLoadMoreBtn] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const per_page = 12;
+  const [imgInfo, setImgInfo] = useState({});
+  const [imgModalIsOpen, setImgModalIsOpen] = useState(false);
+
+  const handleSearch = (query) => {
+    if (query !== "" && query !== searchQuery) {
+      setSearchQuery(query);
+      setImages([]);
+    }
+  };
 
   useEffect(() => {
-    async function getImages() {
+    const fetchImages = async () => {
       try {
+        setIsError(false);
         setIsLoading(true);
-        const response = await fetchImages();
-        setImages(response.data);
+        setLoadMoreBtn(false);
+        const response = await fetchImagesByQuery(
+          searchQuery,
+          currentPage,
+          per_page
+        );
+
+        if (response.total === 0) {
+          setImages([]);
+          setIsError(
+            "Sorry, nothing was found for your request! Please try something else!"
+          );
+        } else {
+          setImages((prevImages) => [...prevImages, ...response.results]);
+
+          {
+            currentPage < response.total_pages
+              ? setLoadMoreBtn(true)
+              : setLoadMoreBtn(false);
+          }
+        }
       } catch (err) {
         setIsError(true);
       } finally {
         setIsLoading(false);
       }
-    }
+    };
 
-    getImages();
-  }, []);
+    if (searchQuery !== "") fetchImages();
+  }, [searchQuery, currentPage]);
 
-  // const handleSubmit = (searchQuery) => {
-  //   console.log(searchQuery);
-  // };
+  const handleLoadMore = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handleOnImgClick = (image) => {
+    setImgInfo(image);
+    openImgModal();
+  };
+
+  const openImgModal = () => {
+    setImgModalIsOpen(true);
+  };
+
+  const closeImgModal = () => {
+    setImgModalIsOpen(false);
+  };
 
   return (
     <div>
+      <SearchBar onSearch={handleSearch} />
       {isError && <ErrorMessage />}
+      {images.length > 0 && (
+        <ImageGallery images={images} onImgClick={handleOnImgClick} />
+      )}
       {isLoading && <Loader />}
-      <ImageGallery images={images} />
+      {loadMoreBtn && <LoadMoreBtn onLoadMore={handleLoadMore} />}
+      <ImageModal
+        onImgModalOpen={imgModalIsOpen}
+        onImgModalClose={closeImgModal}
+        {...imgInfo}
+      />
     </div>
   );
 }
 
 export default App;
+
+// if (currentPage < response.total_pages) {
+//   setLoadMoreBtn(true);
+// } else {
+//   setLoadMoreBtn(false);
+// }
