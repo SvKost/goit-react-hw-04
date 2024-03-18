@@ -33,9 +33,9 @@ function App() {
         setIsLoading(true);
         setLoadMoreBtn(false);
         const response = await fetchImagesByQuery(
-          searchQuery,
           currentPage,
-          per_page
+          per_page,
+          searchQuery
         );
 
         if (response.total === 0) {
@@ -98,9 +98,3 @@ function App() {
 }
 
 export default App;
-
-// if (currentPage < response.total_pages) {
-//   setLoadMoreBtn(true);
-// } else {
-//   setLoadMoreBtn(false);
-// }
