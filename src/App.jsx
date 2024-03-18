@@ -88,11 +88,13 @@ function App() {
       )}
       {isLoading && <Loader />}
       {loadMoreBtn && <LoadMoreBtn onLoadMore={handleLoadMore} />}
-      <ImageModal
-        onImgModalOpen={imgModalIsOpen}
-        onImgModalClose={closeImgModal}
-        {...imgInfo}
-      />
+      {
+        <ImageModal
+          onImgModalOpen={imgModalIsOpen}
+          onImgModalClose={closeImgModal}
+          {...imgInfo}
+        />
+      }
     </div>
   );
 }

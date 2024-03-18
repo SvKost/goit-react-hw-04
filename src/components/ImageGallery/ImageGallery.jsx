@@ -8,7 +8,7 @@ const ImageGallery = ({ images, onImgClick }) => {
         {images.map((image) => {
           return (
             <li key={image.id}>
-              <ImageCard image={image} onImgClisk={onImgClick} />
+              <ImageCard image={image} onImgClick={onImgClick} />
             </li>
           );
         })}
