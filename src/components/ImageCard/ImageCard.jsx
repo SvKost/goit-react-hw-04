@@ -13,7 +13,7 @@ const ImageCard = ({
 
   return (
     <div className={css.imageCard} onClick={() => onImgClick(imgInfo)}>
-      <img width={250} src={urls.small} alt={alt_description} />
+      <img width="400" src={urls.small} alt={alt_description} />
     </div>
   );
 };

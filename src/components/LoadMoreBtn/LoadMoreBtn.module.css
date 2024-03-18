@@ -24,7 +24,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-
+  margin-bottom: 12px;
   will-change: transform, opacity;
   z-index: 0;
 }
