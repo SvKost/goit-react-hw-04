@@ -16,9 +16,9 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const per_page = 12;
   const [imgInfo, setImgInfo] = useState({});
   const [imgModalIsOpen, setImgModalIsOpen] = useState(false);
+  const per_page = 12;
 
   const handleSearch = (query) => {
     if (query !== "" && query !== searchQuery) {
@@ -89,7 +89,9 @@ function App() {
         <ImageGallery images={images} onImgClick={handleOnImgClick} />
       )}
       {isLoading && <Loader />}
-      {loadMoreBtn && <LoadMoreBtn onLoadMore={handleLoadMore} />}
+      {searchQuery !== "" && loadMoreBtn && (
+        <LoadMoreBtn onLoadMore={handleLoadMore} />
+      )}
       {
         <ImageModal
           onImgModalOpen={imgModalIsOpen}
