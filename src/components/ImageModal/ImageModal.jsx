@@ -18,7 +18,7 @@ const ImageModal = ({
       isOpen={onImgModalOpen}
       onRequestClose={onImgModalClose}
     >
-      <img className={css.imgModal} src={srcImgModal} alt={description} />
+      <img className={css.imgModal} src={srcImgModal} alt="" />
       <div className={css.imgDescription}>
         <p>{description}</p>
         <div className={css.imgInfo}>
