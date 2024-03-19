@@ -12,6 +12,7 @@ function App() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +41,8 @@ function App() {
 
         if (response.total === 0) {
           setImages([]);
-          setIsError(
+          setIsError(true);
+          setErrorMessage(
             "Sorry, nothing was found for your request! Please try something else!"
           );
         } else {
@@ -82,7 +84,7 @@ function App() {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      {isError && <ErrorMessage />}
+      {isError && <ErrorMessage message={errorMessage} />}
       {images.length > 0 && (
         <ImageGallery images={images} onImgClick={handleOnImgClick} />
       )}
